@@ -33,7 +33,7 @@ public class GrapplingHook : MonoBehaviour
 
         Physics.Raycast(ray, out hit, maxGrappleRange);
 
-        if (Physics.SphereCast(ray, 0.5f,
+        if (Physics.SphereCast(ray, 2.5f,
             out hitInfo, hit.transform != null ? hit.distance : maxGrappleRange,
             grappleLayer, QueryTriggerInteraction.Ignore))
         {
@@ -58,7 +58,7 @@ public class GrapplingHook : MonoBehaviour
 
         Physics.Raycast(ray, out hit, maxGrappleRange);
 
-        if (Physics.SphereCast(ray, 0.5f,
+        if (Physics.SphereCast(ray, 2.5f,
             out hitInfo, hit.transform != null ? hit.distance : maxGrappleRange,
             grappleLayer, QueryTriggerInteraction.Ignore))
         {

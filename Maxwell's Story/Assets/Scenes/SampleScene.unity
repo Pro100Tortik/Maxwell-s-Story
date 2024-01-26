@@ -326,7 +326,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1431,7 +1431,7 @@ GameObject:
   - component: {fileID: 1258880432}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1533,6 +1533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329722437}
   - component: {fileID: 1329722438}
+  - component: {fileID: 1329722439}
   m_Layer: 0
   m_Name: Camera Holder
   m_TagString: Untagged
@@ -1572,6 +1573,23 @@ MonoBehaviour:
   sensitivity: 1.5
   orientation: {fileID: 1941284061}
   head: {fileID: 1872262465}
+--- !u!114 &1329722439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329722436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c0d1eacee4a7f45ac32fc476a1d259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 3
+  interactionCheckRadius: 0.2
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1642229761
 GameObject:
   m_ObjectHideFlags: 0
