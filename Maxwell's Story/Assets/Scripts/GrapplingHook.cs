@@ -12,6 +12,10 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private float smooth = 25;
     [SerializeField] private float maxGrappleRange = 25.0f;
     [SerializeField] private FPSController controller;
+    [SerializeField] private FPSCameraController cameraController;
+    [SerializeField] private AudioClip start;
+    [SerializeField] private AudioClip end;
+    [SerializeField] private AudioSource source;
     private Vector3 _grapplePoint;
     private Vector3 _currentGrapplePosition;
     private bool _isHooked;
@@ -40,6 +44,11 @@ public class GrapplingHook : MonoBehaviour
             CanHook?.Invoke();
         }
 
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse1) && !_isHooked)
         {
             ThrowHook();
@@ -58,6 +67,8 @@ public class GrapplingHook : MonoBehaviour
 
         Physics.Raycast(ray, out hit, maxGrappleRange);
 
+        source.PlayOneShot(start);
+
         if (Physics.SphereCast(ray, 2.5f,
             out hitInfo, hit.transform != null ? hit.distance : maxGrappleRange,
             grappleLayer, QueryTriggerInteraction.Ignore))
@@ -66,7 +77,7 @@ public class GrapplingHook : MonoBehaviour
             controller.IsHooking = true;
             controller.CanMove = false;
             _isHooked = true;
-
+            
             StartCoroutine(HookHit());
         }
         else
@@ -81,6 +92,9 @@ public class GrapplingHook : MonoBehaviour
     {
         controller.IsHooking = false;
         controller.CanMove = true;
+
+        source.PlayOneShot(end);
+        cameraController.ChangeFov(75);
 
         _isHooked = false;
         _grapplePoint = gunpoint.position;
@@ -104,9 +118,14 @@ public class GrapplingHook : MonoBehaviour
     private IEnumerator HookHit()
     {
         yield return new WaitForSeconds(0.3f);
+        cameraController.ChangeFov(100);
         controller.MoveToHookPosition(Vector3.Normalize(_grapplePoint - playerCamera.position));
-        while (Vector3.Distance(_grapplePoint, playerCamera.position) > 2)
+        while (Vector3.Distance(_grapplePoint, playerCamera.position) > 3)
         {
+            if (Vector3.Distance(_grapplePoint, playerCamera.position) > maxGrappleRange + 2)
+            {
+                break;
+            }
             yield return null;
         }
         ReturnHook();
