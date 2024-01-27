@@ -43,6 +43,8 @@ public class FPSController : MonoBehaviour
         _input.Normalize();
 
         _moveDirection = orientation.rotation * _input;
+
+        _currentMovementSpeed = (Input.GetKey(KeyCode.LeftShift) ? 0.5f : 1.0f) * movementSpeed;
     }
 
     private void Update()
